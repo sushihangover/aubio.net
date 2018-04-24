@@ -65,12 +65,12 @@ namespace Aubio.NET
 		{
 			// add DLLs directory according current configuration
 
-			var directory = GetDependenciesDirectory();
+			//var directory = GetDependenciesDirectory();
 
-			if (string.IsNullOrEmpty(directory))
-				return; // dependencies are in application directory
+			//if (string.IsNullOrEmpty(directory))
+			//	return; // dependencies are in application directory
 
-			var path = Path.Combine(Environment.CurrentDirectory, directory);
+			//var path = Path.Combine(Environment.CurrentDirectory, directory);
 
 			//var cookie = NativeMethods.AddDllDirectory(path);
 			//if (cookie == IntPtr.Zero)
