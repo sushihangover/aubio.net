@@ -12,6 +12,9 @@ namespace Aubio.NET.IO
     /// </summary>
     public sealed class Sink : AubioObject, ISampler
     {
+		[PublicAPI]
+		public const string DllName = "libaubio.dll";
+
         #region Fields
 
         [PublicAPI]
@@ -112,27 +115,27 @@ namespace Aubio.NET.IO
         #region Native Methods
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe Sink__* new_aubio_sink(
             [MarshalAs(UnmanagedType.LPStr)] string uri,
             uint sampleRate
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe void del_aubio_sink(
             Sink__* sink
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern unsafe bool aubio_sink_close(
             Sink__* sink
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe void aubio_sink_do(
             Sink__* sink,
             FVec__* buffer,
@@ -140,7 +143,7 @@ namespace Aubio.NET.IO
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe void aubio_sink_do_multi(
             Sink__* sink,
             FMat__* buffer,
@@ -148,19 +151,19 @@ namespace Aubio.NET.IO
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe uint aubio_sink_get_channels(
             Sink__* sink
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe uint aubio_sink_get_samplerate(
             Sink__* sink
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern unsafe bool aubio_sink_preset_channels(
             Sink__* sink,
@@ -168,7 +171,7 @@ namespace Aubio.NET.IO
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern unsafe bool aubio_sink_preset_samplerate(
             Sink__* sink,

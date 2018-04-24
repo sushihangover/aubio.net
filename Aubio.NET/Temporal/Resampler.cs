@@ -12,6 +12,9 @@ namespace Aubio.NET.Temporal
     /// </summary>
     public sealed class Resampler : AubioObject
     {
+		[PublicAPI]
+		public const string DllName = "libaubio.dll";
+
         // TODO ratio could be computed from two rates and then implement ISampler
 
         #region Fields
@@ -71,20 +74,20 @@ namespace Aubio.NET.Temporal
         #region Native Methods
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe Resampler__* new_aubio_resampler(
             float ratio,
             ResamplerType type
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe void del_aubio_resampler(
             Resampler__* resampler
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe void aubio_resampler_do(
             Resampler__* resampler,
             FVec__* input,

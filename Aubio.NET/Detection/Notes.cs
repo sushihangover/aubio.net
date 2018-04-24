@@ -12,6 +12,9 @@ namespace Aubio.NET.Detection
     /// </summary>
     public sealed class Notes : AubioObject, ISampler
     {
+		[PublicAPI]
+		public const string DllName = "libaubio.dll";
+
         #region Fields
 
         [PublicAPI]
@@ -103,7 +106,7 @@ namespace Aubio.NET.Detection
         #region Native Methods
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe Notes__* new_aubio_notes(
             [MarshalAs(UnmanagedType.LPStr)] string method,
             uint bufferSize,
@@ -112,13 +115,13 @@ namespace Aubio.NET.Detection
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe void del_aubio_notes(
             Notes__* notes
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe void aubio_notes_do(
             Notes__* notes,
             FVec__* input,
@@ -126,19 +129,19 @@ namespace Aubio.NET.Detection
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe float aubio_notes_get_minioi_ms(
             Notes__* notes
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe float aubio_notes_get_silence(
             Notes__* notes
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern unsafe bool aubio_notes_set_minioi_ms(
             Notes__* notes,
@@ -146,7 +149,7 @@ namespace Aubio.NET.Detection
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern unsafe bool aubio_notes_set_silence(
             Notes__* notes,

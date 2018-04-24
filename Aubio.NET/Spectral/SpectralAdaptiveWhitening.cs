@@ -12,6 +12,9 @@ namespace Aubio.NET.Spectral
     /// </summary>
     public sealed class SpectralAdaptiveWhitening : AubioObject, ISampler
     {
+		[PublicAPI]
+		public const string DllName = "libaubio.dll";
+
         #region Fields
 
         [PublicAPI]
@@ -101,7 +104,7 @@ namespace Aubio.NET.Spectral
         #region Native Methods
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe SpectralAdaptiveWhitening__* new_aubio_spectral_whitening(
             uint bufferSize,
             uint hopSize,
@@ -109,32 +112,32 @@ namespace Aubio.NET.Spectral
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe void del_aubio_spectral_whitening(
             SpectralAdaptiveWhitening__* whitening
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe void aubio_spectral_whitening_do(
             SpectralAdaptiveWhitening__* whitening,
             CVec__* fftGrain
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe float aubio_spectral_whitening_get_floor(
             SpectralAdaptiveWhitening__* whitening
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe float aubio_spectral_whitening_get_relax_time(
             SpectralAdaptiveWhitening__* whitening
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern unsafe bool aubio_spectral_whitening_set_floor(
             SpectralAdaptiveWhitening__* whitening,
@@ -142,7 +145,7 @@ namespace Aubio.NET.Spectral
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern unsafe bool aubio_spectral_whitening_set_relax_time(
             SpectralAdaptiveWhitening__* whitening,
@@ -150,7 +153,7 @@ namespace Aubio.NET.Spectral
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe void aubio_spectral_whitening_reset(
             SpectralAdaptiveWhitening__* whitening
         );

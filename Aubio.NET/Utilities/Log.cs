@@ -11,6 +11,8 @@ namespace Aubio.NET.Utilities
     public static class Log
     {
         #region Public Members
+		[PublicAPI]
+		public const string DllName = "libaubio.dll";
 
         public static void Reset()
         {
@@ -39,17 +41,17 @@ namespace Aubio.NET.Utilities
 
         #region Native Methods
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern void aubio_log_reset(
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern void aubio_log_set_function(
             [MarshalAs(UnmanagedType.FunctionPtr)] LogFunction function,
             IntPtr data
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern LogFunction aubio_log_set_level_function(
             LogLevel level,
             LogFunction function,

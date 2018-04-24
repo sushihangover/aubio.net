@@ -13,6 +13,9 @@ namespace Aubio.NET.Spectral
     /// </summary>
     public sealed class SpectralDescription : AubioObject
     {
+		[PublicAPI]
+		public const string DllName = "libaubio.dll";
+
         #region Fields
 
         [PublicAPI]
@@ -71,20 +74,20 @@ namespace Aubio.NET.Spectral
         #region Native Methods
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe SpectralDescription__* new_aubio_specdesc(
             [MarshalAs(UnmanagedType.LPStr)] string method,
             uint bufferSize
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe void del_aubio_specdesc(
             SpectralDescription__* description
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe void aubio_specdesc_do(
             SpectralDescription__* description,
             CVec__* fftGrain,

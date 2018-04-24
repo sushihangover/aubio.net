@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using Aubio.NET.Vectors;
@@ -11,6 +11,9 @@ namespace Aubio.NET.Temporal
     /// </summary>
     public sealed class Filter : AubioObject, ISampler
     {
+		[PublicAPI]
+		public const string DllName = "libaubio.dll";
+
         #region Fields
 
         [PublicAPI]
@@ -154,22 +157,22 @@ namespace Aubio.NET.Temporal
 
         #region Native Methods
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe Filter__* new_aubio_filter(
             uint order
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe Filter__* new_aubio_filter_a_weighting(
             uint sampleRate
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe Filter__* new_aubio_filter_c_weighting(
             uint sampleRate
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe Filter__* new_aubio_filter_biquad(
             double b0,
             double b1,
@@ -178,57 +181,57 @@ namespace Aubio.NET.Temporal
             double a2
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe void del_aubio_filter(
             Filter__* filter
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe void aubio_filter_do(
             Filter__* filter,
             FVec__* input
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe void aubio_filter_do_outplace(
             Filter__* filter,
             FVec__* input,
             FVec__* output
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe void aubio_filter_do_filtfilt(
             Filter__* filter,
             FVec__* input,
             FVec__* temp
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe void aubio_filter_do_reset(
             Filter__* filter
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe LVec__* aubio_filter_get_feedback(
             Filter__* filter
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe LVec__* aubio_filter_get_feedforward(
             Filter__* filter
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe uint aubio_filter_get_order(
             Filter__* filter
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe uint aubio_filter_get_samplerate(
             Filter__* filter
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern unsafe bool aubio_filter_set_samplerate(
             Filter__* filter,

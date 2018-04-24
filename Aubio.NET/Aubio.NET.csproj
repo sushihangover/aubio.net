@@ -18,4 +18,16 @@
     <PackageReference Include="JetBrains.Annotations" Version="11.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Win32\Unused\NativeHelper.cs" />
+    <Compile Remove="Win32\Unused\NativeLibraryHandle.cs" />
+    <Compile Remove="Win32\Unused\NativeLibraryLoader.cs" />
+    <Compile Remove="Win32\NativeMethods.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Win32\Unused\NativeHelper.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
+    <None Include="Win32\Unused\NativeLibraryHandle.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
+    <None Include="Win32\Unused\NativeLibraryLoader.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
+    <None Include="Win32\NativeMethods.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
+  </ItemGroup>
 </Project>

@@ -12,6 +12,9 @@ namespace Aubio.NET.Spectral
     /// </summary>
     public sealed class TransientSteadyStateSeparation : AubioObject
     {
+		[PublicAPI]
+		public const string DllName = "libaubio.dll";
+
         #region Fields
 
         [PublicAPI]
@@ -116,20 +119,20 @@ namespace Aubio.NET.Spectral
         #region Native Methods
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe TransientSteadyStateSeparation__* new_aubio_tss(
             uint bufferSize,
             uint hopSize
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe void del_aubio_tss(
             TransientSteadyStateSeparation__* separation
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe void aubio_tss_do(
             TransientSteadyStateSeparation__* separation,
             CVec__* input,
@@ -138,7 +141,7 @@ namespace Aubio.NET.Spectral
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern unsafe bool aubio_tss_set_threshold(
             TransientSteadyStateSeparation__* separation,
@@ -146,7 +149,7 @@ namespace Aubio.NET.Spectral
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern unsafe bool aubio_tss_set_alpha(
             TransientSteadyStateSeparation__* separation,
@@ -154,7 +157,7 @@ namespace Aubio.NET.Spectral
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern unsafe bool aubio_tss_set_beta(
             TransientSteadyStateSeparation__* separation,

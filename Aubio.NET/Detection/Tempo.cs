@@ -11,6 +11,9 @@ namespace Aubio.NET.Detection
     /// </summary>
     public sealed class Tempo : AubioObject, ISampler
     {
+		[PublicAPI]
+		public const string DllName = "libaubio.dll";
+
         #region Fields
 
         [PublicAPI]
@@ -173,97 +176,97 @@ namespace Aubio.NET.Detection
 
         #region Native methods
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe void aubio_tempo_do(
             Tempo__* tempo,
             FVec__* input,
             FVec__* output
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe float aubio_tempo_get_bpm(
             Tempo__* tempo
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe float aubio_tempo_get_confidence(
             Tempo__* tempo
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe int aubio_tempo_get_delay(
             Tempo__* tempo
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe uint aubio_tempo_get_last(
             Tempo__* tempo
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe int aubio_tempo_get_last_tatum(
             Tempo__* tempo
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe int aubio_tempo_get_period(
             Tempo__* tempo
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe float aubio_tempo_get_silence(
             Tempo__* tempo
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe uint aubio_tempo_get_samplerate(
             Tempo__* tempo
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe float aubio_tempo_get_threshold(
             Tempo__* tempo
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern unsafe bool aubio_tempo_set_delay(
             Tempo__* tempo,
             int delay
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern unsafe bool aubio_tempo_set_tatum_signature(
             Tempo__* tempo,
             uint signature
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern unsafe bool aubio_tempo_set_silence(
             Tempo__* tempo,
             float silence
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern unsafe bool aubio_tempo_set_threshold(
             Tempo__* tempo,
             float threshold
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe TempoTatum aubio_tempo_was_tatum(
             Tempo__* tempo
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe void del_aubio_tempo(
             Tempo__* tempo
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe Tempo__* new_aubio_tempo(
             [MarshalAs(UnmanagedType.LPStr)] string method,
             uint bufferSize,

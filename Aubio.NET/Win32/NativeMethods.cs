@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Text;
-using Aubio.NET.Win32.Unused;
+//using Aubio.NET.Win32.Unused;
 
 namespace Aubio.NET.Win32
 {

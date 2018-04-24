@@ -10,6 +10,9 @@ namespace Aubio.NET.Utilities
     /// </summary>
     public sealed class Parameter : AubioObject
     {
+		[PublicAPI]
+		public const string DllName = "libaubio.dll";
+
         #region Fields 
 
         [PublicAPI]
@@ -102,74 +105,74 @@ namespace Aubio.NET.Utilities
 
         #region Native Methods
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe Parameter__* new_aubio_parameter(
             float minValue,
             float maxValue,
             uint steps
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe void del_aubio_parameter(
             Parameter__* parameter
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern unsafe bool aubio_parameter_set_target_value(
             Parameter__* parameter,
             float value
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe float aubio_parameter_get_next_value(
             Parameter__* parameter
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe float aubio_parameter_get_current_value(
             Parameter__* parameter
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern unsafe bool aubio_parameter_set_current_value(
             Parameter__* parameter,
             float value
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern unsafe bool aubio_parameter_set_max_value(
             Parameter__* parameter,
             float value
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern unsafe bool aubio_parameter_set_min_value(
             Parameter__* parameter,
             float value
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         [return: MarshalAs(UnmanagedType.Bool)]
         private static extern unsafe bool aubio_parameter_set_steps(
             Parameter__* parameter,
             uint steps
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe float aubio_parameter_get_max_value(
             Parameter__* parameter
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe float aubio_parameter_get_min_value(
             Parameter__* parameter
         );
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe uint aubio_parameter_get_steps(
             Parameter__* parameter
         );

@@ -3,104 +3,108 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Security;
 using Aubio.NET.Vectors;
+using Aubio.NET.Win32;
 using JetBrains.Annotations;
 
 namespace Aubio.NET.Spectral
 {
-    /// <summary>
-    ///     https://aubio.org/doc/latest/mfcc_8h.html
-    /// </summary>
-    public sealed class Mfcc : AubioObject, ISampler
-    {
-        #region Fields
+	/// <summary>
+	///     https://aubio.org/doc/latest/mfcc_8h.html
+	/// </summary>
+	public sealed class Mfcc : AubioObject, ISampler
+	{
+		[PublicAPI]
+		public const string DllName = "libaubio.dll";
 
-        [PublicAPI]
-        [NotNull]
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        internal readonly unsafe Mfcc__* Handle;
+		#region Fields
 
-        #endregion
+		[PublicAPI]
+		[NotNull]
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		internal readonly unsafe Mfcc__* Handle;
 
-        #region Implementation of ISampler
+		#endregion
 
-        public int SampleRate { get; }
+		#region Implementation of ISampler
 
-        #endregion
+		public int SampleRate { get; }
 
-        #region Public Members
+		#endregion
 
-        [PublicAPI]
-        public unsafe Mfcc(int bufferSize, int filters, int coefficients, int sampleRate = 44100)
-        {
-            if (bufferSize <= 0)
-                throw new ArgumentOutOfRangeException(nameof(bufferSize));
+		#region Public Members
 
-            if (filters <= 0)
-                throw new ArgumentOutOfRangeException(nameof(filters));
+		[PublicAPI]
+		public unsafe Mfcc(int bufferSize, int filters, int coefficients, int sampleRate = 44100)
+		{
+			if (bufferSize <= 0)
+				throw new ArgumentOutOfRangeException(nameof(bufferSize));
 
-            if (coefficients <= 0)
-                throw new ArgumentOutOfRangeException(nameof(coefficients));
+			if (filters <= 0)
+				throw new ArgumentOutOfRangeException(nameof(filters));
 
-            if (sampleRate <= 0)
-                throw new ArgumentOutOfRangeException(nameof(sampleRate));
+			if (coefficients <= 0)
+				throw new ArgumentOutOfRangeException(nameof(coefficients));
 
-            SampleRate = sampleRate;
+			if (sampleRate <= 0)
+				throw new ArgumentOutOfRangeException(nameof(sampleRate));
 
-            var handle = new_aubio_mfcc((uint) bufferSize, (uint) filters, (uint) coefficients, (uint) sampleRate);
-            if (handle == null)
-                throw new ArgumentNullException(nameof(handle));
+			SampleRate = sampleRate;
 
-            Handle = handle;
-        }
+			var handle = new_aubio_mfcc((uint)bufferSize, (uint)filters, (uint)coefficients, (uint)sampleRate);
+			if (handle == null)
+				throw new ArgumentNullException(nameof(handle));
 
-        [PublicAPI]
-        public unsafe void Do([NotNull] CVec input, [NotNull] CVec output)
-        {
-            if (input == null)
-                throw new ArgumentNullException(nameof(input));
+			Handle = handle;
+		}
 
-            if (output == null)
-                throw new ArgumentNullException(nameof(output));
+		[PublicAPI]
+		public unsafe void Do([NotNull] CVec input, [NotNull] CVec output)
+		{
+			if (input == null)
+				throw new ArgumentNullException(nameof(input));
 
-            aubio_mfcc_do(Handle, input.Handle, output.Handle);
-        }
+			if (output == null)
+				throw new ArgumentNullException(nameof(output));
 
-        #endregion
+			aubio_mfcc_do(Handle, input.Handle, output.Handle);
+		}
 
-        #region Overrides of AubioObject
+		#endregion
 
-        protected override unsafe void DisposeNative()
-        {
-            del_aubio_mfcc(Handle);
-        }
+		#region Overrides of AubioObject
 
-        #endregion
+		protected override unsafe void DisposeNative()
+		{
+			del_aubio_mfcc(Handle);
+		}
 
-        #region Native Methods
+		#endregion
 
-        [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
-        private static extern unsafe Mfcc__* new_aubio_mfcc(
-            uint bufferSize,
-            uint filters,
-            uint coefficients,
-            uint sampleRate
-        );
+		#region Native Methods
 
-        [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
-        private static extern unsafe void del_aubio_mfcc(
-            Mfcc__* mfcc
-        );
+		[SuppressUnmanagedCodeSecurity]
+		[DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+		private static extern unsafe Mfcc__* new_aubio_mfcc(
+			 uint bufferSize,
+			 uint filters,
+			 uint coefficients,
+			 uint sampleRate
+		);
 
-        [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
-        private static extern unsafe void aubio_mfcc_do(
-            Mfcc__* mfcc,
-            CVec__* input,
-            CVec__* output
-        );
+		[SuppressUnmanagedCodeSecurity]
+		[DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+		private static extern unsafe void del_aubio_mfcc(
+			 Mfcc__* mfcc
+		);
 
-        #endregion
-    }
+		[SuppressUnmanagedCodeSecurity]
+		[DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+		private static extern unsafe void aubio_mfcc_do(
+			 Mfcc__* mfcc,
+			 CVec__* input,
+			 CVec__* output
+		);
+
+		#endregion
+	}
 }

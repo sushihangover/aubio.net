@@ -6,168 +6,171 @@ using JetBrains.Annotations;
 
 namespace Aubio.NET.IO
 {
-    /// <summary>
-    ///     https://aubio.org/doc/latest/source_8h.html
-    /// </summary>
-    public sealed class Source : AubioObject, ISampler
-    {
-        #region Fields
+	/// <summary>
+	///     https://aubio.org/doc/latest/source_8h.html
+	/// </summary>
+	public sealed class Source : AubioObject, ISampler
+	{
+		[PublicAPI]
+		public const string DllName = "aubio";
 
-        [PublicAPI]
-        [NotNull]
-        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
-        internal readonly unsafe Source__* Handle;
+		#region Fields
 
-        #endregion
+		[PublicAPI]
+		[NotNull]
+		[DebuggerBrowsable(DebuggerBrowsableState.Never)]
+		internal readonly unsafe Source__* Handle;
 
-        #region Implementation of ISampler
+		#endregion
 
-        [PublicAPI]
-        public unsafe int SampleRate => (int) aubio_source_get_samplerate(Handle);
+		#region Implementation of ISampler
 
-        #endregion
+		[PublicAPI]
+		public unsafe int SampleRate => (int)aubio_source_get_samplerate(Handle);
 
-        #region Public Members
+		#endregion
 
-        [PublicAPI]
-        public unsafe Source([NotNull] string uri, int sampleRate = 44100, int hopSize = 256)
-        {
-            if (uri == null)
-                throw new ArgumentNullException(nameof(uri));
+		#region Public Members
 
-            if (sampleRate < 0)
-                throw new ArgumentOutOfRangeException(nameof(sampleRate));
+		[PublicAPI]
+		public unsafe Source([NotNull] string uri, int sampleRate = 44100, int hopSize = 256)
+		{
+			if (uri == null)
+				throw new ArgumentNullException(nameof(uri));
 
-            if (hopSize <= 0)
-                throw new ArgumentOutOfRangeException(nameof(hopSize));
+			if (sampleRate < 0)
+				throw new ArgumentOutOfRangeException(nameof(sampleRate));
 
-            var handle = new_aubio_source(uri, (uint) sampleRate, (uint) hopSize);
-            if (handle == null)
-                throw new ArgumentNullException(nameof(handle));
+			if (hopSize <= 0)
+				throw new ArgumentOutOfRangeException(nameof(hopSize));
 
-            Handle = handle;
-        }
+			var handle = new_aubio_source(uri, (uint)sampleRate, (uint)hopSize);
+			if (handle == null)
+				throw new ArgumentNullException(nameof(handle));
 
-        [PublicAPI]
-        public unsafe int Channels => (int) aubio_source_get_channels(Handle);
+			Handle = handle;
+		}
 
-        [PublicAPI]
-        public unsafe Time Duration
-        {
-            get
-            {
-                var samples = aubio_source_get_duration(Handle);
-                var time = Time.FromSamples(SampleRate, (int) samples);
-                return time;
-            }
-        }
+		[PublicAPI]
+		public unsafe int Channels => (int)aubio_source_get_channels(Handle);
 
-        [PublicAPI]
-        public unsafe void Close()
-        {
-            if (aubio_source_close(Handle))
-                throw new InvalidOperationException();
-        }
+		[PublicAPI]
+		public unsafe Time Duration
+		{
+			get
+			{
+				var samples = aubio_source_get_duration(Handle);
+				var time = Time.FromSamples(SampleRate, (int)samples);
+				return time;
+			}
+		}
 
-        [PublicAPI]
-        public unsafe void Do([NotNull] FVec buffer, out int framesRead)
-        {
-            if (buffer == null)
-                throw new ArgumentNullException(nameof(buffer));
+		[PublicAPI]
+		public unsafe void Close()
+		{
+			if (aubio_source_close(Handle))
+				throw new InvalidOperationException();
+		}
 
-            aubio_source_do(Handle, buffer.Handle, out var read);
+		[PublicAPI]
+		public unsafe void Do([NotNull] FVec buffer, out int framesRead)
+		{
+			if (buffer == null)
+				throw new ArgumentNullException(nameof(buffer));
 
-            framesRead = (int) read;
-        }
+			aubio_source_do(Handle, buffer.Handle, out var read);
 
-        [PublicAPI]
-        public unsafe void DoMulti([NotNull] FMat buffer, out int framesRead)
-        {
-            if (buffer == null)
-                throw new ArgumentNullException(nameof(buffer));
+			framesRead = (int)read;
+		}
 
-            aubio_source_do_multi(Handle, buffer.Handle, out var read);
+		[PublicAPI]
+		public unsafe void DoMulti([NotNull] FMat buffer, out int framesRead)
+		{
+			if (buffer == null)
+				throw new ArgumentNullException(nameof(buffer));
 
-            framesRead = (int) read;
-        }
+			aubio_source_do_multi(Handle, buffer.Handle, out var read);
 
-        [PublicAPI]
-        public unsafe void Seek(int position)
-        {
-            if (position < 0)
-                throw new ArgumentOutOfRangeException(nameof(position));
+			framesRead = (int)read;
+		}
 
-            if (aubio_source_seek(Handle, (uint) position))
-                throw new ArgumentOutOfRangeException(nameof(position));
-        }
+		[PublicAPI]
+		public unsafe void Seek(int position)
+		{
+			if (position < 0)
+				throw new ArgumentOutOfRangeException(nameof(position));
 
-        #endregion
+			if (aubio_source_seek(Handle, (uint)position))
+				throw new ArgumentOutOfRangeException(nameof(position));
+		}
 
-        #region Overrides of AubioObject
+		#endregion
 
-        protected override unsafe void DisposeNative()
-        {
-            del_aubio_source(Handle);
-        }
+		#region Overrides of AubioObject
 
-        #endregion
+		protected override unsafe void DisposeNative()
+		{
+			del_aubio_source(Handle);
+		}
 
-        #region Native methods
+		#endregion
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
-        private static extern unsafe Source__* new_aubio_source(
-            [MarshalAs(UnmanagedType.LPStr)] string uri,
-            uint sampleRate,
-            uint hopSize
-        );
+		#region Native methods
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
-        private static extern unsafe void del_aubio_source(
-            Source__* source
-        );
+		[DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+		private static extern unsafe Source__* new_aubio_source(
+			 [MarshalAs(UnmanagedType.LPStr)] string uri,
+			 uint sampleRate,
+			 uint hopSize
+		);
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern unsafe bool aubio_source_close(
-            Source__* source
-        );
+		[DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+		private static extern unsafe void del_aubio_source(
+			 Source__* source
+		);
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
-        private static extern unsafe void aubio_source_do(
-            Source__* source,
-            FVec__* buffer,
-            out uint read
-        );
+		[DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		private static extern unsafe bool aubio_source_close(
+			 Source__* source
+		);
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
-        private static extern unsafe void aubio_source_do_multi(
-            Source__* source,
-            FMat__* buffer,
-            out uint read
-        );
+		[DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+		private static extern unsafe void aubio_source_do(
+			 Source__* source,
+			 FVec__* buffer,
+			 out uint read
+		);
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
-        private static extern unsafe uint aubio_source_get_channels(
-            Source__* source
-        );
+		[DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+		private static extern unsafe void aubio_source_do_multi(
+			 Source__* source,
+			 FMat__* buffer,
+			 out uint read
+		);
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
-        private static extern unsafe uint aubio_source_get_duration(
-            Source__* source
-        );
+		[DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+		private static extern unsafe uint aubio_source_get_channels(
+			 Source__* source
+		);
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
-        private static extern unsafe uint aubio_source_get_samplerate(
-            Source__* source
-        );
+		[DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+		private static extern unsafe uint aubio_source_get_duration(
+			 Source__* source
+		);
 
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs(UnmanagedType.Bool)]
-        private static extern unsafe bool aubio_source_seek(
-            Source__* source,
-            uint position
-        );
+		[DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+		private static extern unsafe uint aubio_source_get_samplerate(
+			 Source__* source
+		);
 
-        #endregion
-    }
+		[DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
+		[return: MarshalAs(UnmanagedType.Bool)]
+		private static extern unsafe bool aubio_source_seek(
+			 Source__* source,
+			 uint position
+		);
+
+		#endregion
+	}
 }

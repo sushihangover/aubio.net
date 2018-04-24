@@ -7,6 +7,9 @@ namespace Aubio.NET.Vectors
 {
     internal sealed class CVecBufferNorm : CVecBuffer
     {
+		[PublicAPI]
+		public const string DllName = "libaubio.dll";
+
         public unsafe CVecBufferNorm([NotNull] CVec cVec, [NotNull] float* data, int length)
             : base(cVec, data, length)
         {
@@ -51,33 +54,33 @@ namespace Aubio.NET.Vectors
         }
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe float* cvec_norm_get_data(
             CVec__* cVec
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe float cvec_norm_get_sample(
             CVec__* cVec,
             uint position
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe void cvec_norm_ones(
             CVec__* cVec
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe void cvec_norm_set_all(
             CVec__* cVec,
             float value
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe void cvec_norm_set_sample(
             CVec__* cVec,
             float value,
@@ -85,7 +88,7 @@ namespace Aubio.NET.Vectors
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern unsafe void cvec_norm_zeros(
             CVec__* cVec
         );

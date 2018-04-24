@@ -8,6 +8,9 @@ namespace Aubio.NET
     [PublicAPI]
     public static class Converters
     {
+		[PublicAPI]
+		public const string DllName = "libaubio.dll";
+
         public static float SamplesToMilliseconds(int sampleRate, int samples)
         {
             return samples * 1000.0f / sampleRate;
@@ -81,13 +84,13 @@ namespace Aubio.NET
         }
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern float aubio_unwrap2pi(
             float phase
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern float aubio_bintomidi(
             float bin,
             float sampleRate,
@@ -95,7 +98,7 @@ namespace Aubio.NET
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern float aubio_miditobin(
             float midi,
             float sampleRate,
@@ -103,7 +106,7 @@ namespace Aubio.NET
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern float aubio_bintofreq(
             float bin,
             float sampleRate,
@@ -111,7 +114,7 @@ namespace Aubio.NET
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern float aubio_freqtobin(
             float freq,
             float sampleRate,
@@ -119,13 +122,13 @@ namespace Aubio.NET
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern float aubio_freqtomidi(
             float freq
         );
 
         [SuppressUnmanagedCodeSecurity]
-        [DllImport("aubio", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport(DllName, CallingConvention = CallingConvention.Cdecl)]
         private static extern float aubio_miditofreq(
             float midi
         );
